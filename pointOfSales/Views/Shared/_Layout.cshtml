@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Point Of Sales</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -16,23 +16,46 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Point Of Sales Management System", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+                    @if (ViewBag.Title != "Login")
+                    {
+                        <li>@Html.ActionLink("Home", "LoggedIn", "User")</li>
+                        if (Session["Role"].ToString().ToLower() == "admin")
+                        {
+                            <li>@Html.ActionLink("Users", "Index", "User")</li>
+                            <li>@Html.ActionLink("Roles", "Index", "Role")</li>
+                        }
+
+                    }
                 </ul>
-            </div>
-        </div>
+                @if (ViewBag.Title != "Login")
+                {
+                <ul class="nav navbar-nav" style="float: right;">
+                    <li class="nav navbar-nav" style="display:inline;float:right">@Html.ActionLink("Logout", "Login", "User")</li>
+                    <li class="nav navbar-nav" style="display:inline;float:right">
+                        <a href="">
+                            Logged In As @Session["Role"].ToString(): @Session["FirstName"].ToString() @Session["LastName"].ToString()
+                        </a>
+                    </li>
+                    <li class="nav navbar-nav" style="display:inline;float:right">
+                        <a href="#">
+                            <span class="badge">
+                                <i class="fa fa-bell" aria-hidden="true"></i>5
+                                </span>
+                        </a></li>
+                </ul>
+                }
+                </div>
+            
+                </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+       
     </div>
 
     @Scripts.Render("~/bundles/jquery")

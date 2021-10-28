@@ -1,0 +1,95 @@
+﻿@model IEnumerable<pointOfSales.Models.ProductItem>
+@{
+    ViewBag.Title = "Indexs";
+}
+
+<script>
+
+    function countdown(time)
+    {
+        return total
+    }
+</script>
+<h2> Added Items for The Invoice</h2>
+<div class="form-group">
+    <label class="control-label" for="disabledInput"> Invoice ID</label>
+    <input class="form-control" id="disabledInput" type="text" disabled="" value=@Session["InvoiceID"]>
+  
+</div>
+
+<p>
+    <i class="fa fa-shopping-basket" aria-hidden="true">@Html.ActionLink("Add New Item", "ItemCreate", "Invoice")</i>
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CostPerItem)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalCost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Invoice_Id)
+        </th>
+        <th></th>
+    </tr>
+    @{ // from here c# block starts
+        Double total = 0.0;
+    }
+    @foreach (var item in Model)
+    {
+        total += item.TotalCost;
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td>
+                R: @Html.DisplayFor(modelItem => item.CostPerItem)
+            </td>
+            <td>
+                R: @Html.DisplayFor(modelItem => item.TotalCost)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Invoice_Id)
+            </td>
+            <td>
+                <i class="fa fa-pencil" aria-hidden="true"> @Html.ActionLink("Edit", "ItemEdit", new { id = item.ItemID }) |</i>
+                <i class="fa fa-eye" aria-hidden="true"> @Html.ActionLink("Details", "ItemDetails", new { id = item.ItemID }) |</i>
+                <i class="fa fa-trash" aria-hidden="true"> @Html.ActionLink("Delete", "ItemDelete", new { id = item.ItemID }) </i>
+            </td>
+        </tr>
+    }
+    @{ // from here c# block starts
+        total = Math.Round(total, 2);
+        Session["InvoiceTotal"] = total;
+    }
+    <tr>
+        <td colspan="5" style="text-align:right">Total : </td>
+        <td colspan="1" style="text-align:center;">
+            R: @total
+        </td>
+
+    </tr>
+    <tr>
+        <td colspan="6" style="text-align:right;">
+            @*<a href="InvoiceLog" class="btn btn-default"> <i class="fa fa-money" aria-hidden="true"> Log Invoice</i></a>*@
+            <p class="btn btn-default">
+            <i class="fa fa-money" aria-hidden="true"> @Html.ActionLink("Log Invoice", "LogInvoice", "Invoice")
+            </i>
+            </p>
+        </td>
+
+    </tr>
+</table>
+
