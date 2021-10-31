@@ -60,34 +60,31 @@
         .container {
             width: 100%;
         }
-        .links a {
-            position: relative;
-            display: block;
-            padding: 23px 15px;
-            margin-bottom: -1px;
-            background-color: #32383e;
-            border: 1px solid rgba(0, 0, 0, 0.6);
+        .list-group-item.links {
+            padding: 20px 15px;
         }
+
     </style>
 </head>
 <div class="list-group p sideBar">
     <a href="#" class="list-group-item active">
-        <h3> Dashbord</h3>
+        <h3><i class="fa fa-bars" aria-hidden="true"> Dashbord</i> </h3>
     </a>
-    <span class="links">
-        @Html.ActionLink("Products", "Index", "Product")
+    <span class="list-group-item links">
+        <i class="fa fa-shopping-cart links" aria-hidden="true"> </i>  @Html.ActionLink("Products", "Index", "Product")
     </span>
-    <span class="links">
-        @Html.ActionLink("Invoices", "Index", "Invoice")
+    <span class="list-group-item links">
+        <i class="fa fa-credit-card-alt" aria-hidden="true"></i> @Html.ActionLink("Invoices", "Index", "Invoice")
     </span>
 
-  
-    <span class="links">
-        @Html.ActionLink("Generate/View Reports", "Index", "item")
+
+    <span class="list-group-item links">
+        <i class="fa fa-file-text" aria-hidden="true"></i> @Html.ActionLink("Generate/View Reports", "ReportView","Report")
     </span>
-    <a href="#" class="list-group-item">
-        View Account
-    </a>
+    <span class="list-group-item links">
+        <i class="fa fa-cogs" aria-hidden="true"></i>
+        @Html.ActionLink("View Account Settings", "", "Home")
+    </span>
 
     <footer>
         <p style="text-align:center">Created In : &copy; @DateTime.Now.Year - By Nolwazi Mlonzi</p>
@@ -119,7 +116,7 @@
     </div>
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">Logged InvoiceIDs</h3>
+            <h3 class="panel-title">Logged Invoices</h3>
         </div>
         <div class="panel-body stat">
             76

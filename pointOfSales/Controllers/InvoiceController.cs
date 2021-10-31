@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using pointOfSales.Models;
 using point_of_sales.Models;
+using OfficeOpenXml;
+using System.IO;
 
 namespace pointOfSales.Controllers
 {
@@ -44,6 +46,42 @@ namespace pointOfSales.Controllers
             UpdateTotalInvoice();
             return View(productItem);
         }
+        public ActionResult ExportListUsingEPPlusRedirect()
+        {
+            InvoiceController invoiceController = new InvoiceController();
+            invoiceController.ExportListUsingEPPlus();
+            return View();
+
+        }
+
+        public void ExportListUsingEPPlus()
+        {
+            //var data = db.ProductItems.ToList();
+            //ExcelPackage.LicenseContext = LicenseContext.Commercial;
+
+            // If you use EPPlus in a noncommercial context
+            // according to the Polyform Noncommercial license:
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            var data = new[]{
+              new{ Name="Myname", Email="myna@google.com"},
+              new{ Name="yourname", Email="your@yahoo.com"},
+              new{ Name="saman", Email="saman@yahoo.com"},
+           };
+
+            ExcelPackage excel = new ExcelPackage();
+            var workSheet = excel.Workbook.Worksheets.Add("Sheet1");
+            workSheet.Cells[1, 1].LoadFromCollection(data, true);
+            using (var memoryStream = new MemoryStream())
+            {
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment;  filename=Contact.xlsx");
+                excel.SaveAs(memoryStream);
+                memoryStream.WriteTo(Response.OutputStream);
+                Response.Flush();
+                Response.End();
+            }
+            }
         public ActionResult UpdateTotalInvoice()
         {
            

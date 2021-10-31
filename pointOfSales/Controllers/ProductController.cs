@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using pointOfSales.Models;
 using point_of_sales.Models;
+using OfficeOpenXml;
+using System.IO;
 
 namespace pointOfSales.Controllers
 {
@@ -20,7 +22,7 @@ namespace pointOfSales.Controllers
         {
             return View(db.Products.ToList());
         }
-
+       
         // GET: Product/Details/5
         public ActionResult Details(int? id)
         {

@@ -26,6 +26,7 @@
                         <li>@Html.ActionLink("Home", "LoggedIn", "User")</li>
                         if (Session["Role"].ToString().ToLower() == "admin")
                         {
+                            <li>@Html.ActionLink("Export", "About", "Home")</li>
                             <li>@Html.ActionLink("Users", "Index", "User")</li>
                             <li>@Html.ActionLink("Roles", "Index", "Role")</li>
                         }
