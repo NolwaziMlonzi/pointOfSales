@@ -104,7 +104,7 @@ namespace pointOfSales.Controllers
 
         public ActionResult ReportView()
         {
-            return View();
+            return View(db.ProductItems.ToList());
         }
     }
 }
